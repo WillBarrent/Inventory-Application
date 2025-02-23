@@ -1,8 +1,8 @@
 const pool = require("./pool");
 
 async function getAllPokemons() {
-  const { rows } = pool.query(`
-    SELECT * FROM pokemons
+  const { rows } = await pool.query(`
+    SELECT pokemons.id, pokemon_name, trainer, type_name FROM pokemons
     INNER JOIN trainers
     ON trainers.id = pokemons.pokemon_trainer_id
     INNER JOIN types
