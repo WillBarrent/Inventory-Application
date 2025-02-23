@@ -7,7 +7,7 @@ async function indexGet(req, res) {
   res.render("index", {
     title: "All Pokemons",
     pokemons: pokemons,
-    keys: keys,
+    keys: [...keys, "actions"],
   });
 }
 
