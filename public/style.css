@@ -129,3 +129,24 @@ body {
 .display__items-title {
   padding: 5px 0;
 }
+
+.display__items-table--action {
+  width: 100%;
+
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.display__items-table--item-icon {
+  text-decoration: none;
+}
+
+.display__items-table--item-icon svg {
+  width: 25px;
+  fill: #fff5e1;
+}
+
+.display__items-table--item-icon svg:hover {
+  fill: rgb(255, 245, 225, .8);
+}
