@@ -1,0 +1,21 @@
+<div class="display">
+  <div class="display__title"><%= title %></div>
+  <div class="add-item">
+    <a href="" class="add-item__link">Add Pokemon</a>
+  </div>
+  <div class="display__items">
+    <div class="display__items-titles">
+      <% keys.forEach((key) => { %>
+      <div class="display__items-title"><%= key %></div>
+      <% }); %>
+    </div>
+    <% pokemons.forEach((pokemon) => { %>
+    <div class="display__items-table">
+      <div class="display__items-table--item"><%= pokemon.id %></div>
+      <div class="display__items-table--item"><%= pokemon.pokemon_name %></div>
+      <div class="display__items-table--item"><%= pokemon.trainer %></div>
+      <div class="display__items-table--item"><%= pokemon.type_name %></div>
+    </div>
+    <% }); %>
+  </div>
+</div>
