@@ -4,14 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title><%= title %></title>
 
   <%- include('../templates/styles') %>
 </head>
 
 <body>
   <div class="create-pokemon">
+    <a href="/" class="create-pokemon__back-link">Back to Home Page</a>
     <form action="/create" method="post" class="create-pokemon__form">
+      <h2 class="create-pokemon__form--title"><%= title %></h2>
       <div class="create-pokemon__name">
         <label for="name" class="create-pokemon__name--label">Pokemon's Name</label>
         <input type="text" class="create-pokemon__name--input" id="name" name="pokemon_name">
