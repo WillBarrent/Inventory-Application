@@ -150,3 +150,97 @@ body {
 .display__items-table--item-icon svg:hover {
   fill: rgb(255, 245, 225, .8);
 }
+
+.create-pokemon {
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  color: #fff5e1;
+}
+
+.create-pokemon__back-link {
+  width: 500px;
+  font-size: 30px;
+  text-decoration: none;
+  color: #0c1844;
+
+  text-align: left;
+}
+
+.create-pokemon__back-link:hover {
+  text-decoration: underline;
+}
+
+.create-pokemon__form {
+  width: 500px;
+  height: 600px;
+  padding: 60px 30px;
+  background-color: #c80036;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+.create-pokemon__form--title {
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.create-pokemon__name, .create-pokemon__trainer, .create-pokemon__type {
+  display: flex;
+  flex-direction: column;
+  
+  gap: 10px;
+}
+
+.create-pokemon__name--input {
+  border: none;
+  outline: none;
+
+  font-family: inherit;
+  font-size: 30px;
+
+  padding: 5px 10px;
+
+  background-color: #fff5e1;
+  color: #0c1844;
+}
+
+.create-pokemon__trainer select, .create-pokemon__type select {
+  border: none;
+  outline: none;
+
+  font-family: inherit;
+  font-size: 30px;
+
+  padding: 5px 10px;
+
+  background-color: #fff5e1;
+  color: #0c1844;
+}
+
+.create-pokemon label {
+  font-size: 30px;
+}
+
+.create-pokemon button {
+  color: #fff5e1;
+  background-color: #0c1844;
+
+  padding: 5px 10px;
+
+  font-size: 30px;
+  font-family: inherit;
+
+  border: none;
+  outline: none;
+  width: 100%;
+}
