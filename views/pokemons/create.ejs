@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <%- include('../templates/styles') %>
+</head>
+
+<body>
+  <div class="create-pokemon">
+    <form action="/create" method="post" class="create-pokemon__form">
+      <div class="create-pokemon__name">
+        <label for="name" class="create-pokemon__name--label">Pokemon's Name</label>
+        <input type="text" class="create-pokemon__name--input" id="name" name="pokemon_name">
+      </div>
+      <div class="create-pokemon__trainer">
+        <label for="trainer" class="create-pokemon__trainer--label">Pokemon's trainer</label>
+        <select name="trainer" id="trainer">
+          <% trainers.forEach((trainer) => { %>
+          <option value="<%= trainer.trainer %>"><%= trainer.trainer %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="create-pokemon__type">
+        <label for="type" class="create-pokemon__type--label">Pokemon's type</label>
+        <select name="type" id="type">
+          <% types.forEach((type) => { %>
+          <option value="<%= type.type_name %>"><%= type.type_name %></option>
+          <% }); %>
+        </select>
+      </div>
+      <button type="submit">Create</button>
+    </form>
+  </div>
+</body>
+
+</html>
