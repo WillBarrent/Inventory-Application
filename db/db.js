@@ -12,4 +12,14 @@ async function getAllPokemons() {
   return rows;
 }
 
-module.exports = { getAllPokemons };
+async function getAllTrainers() {
+  const { rows } = await pool.query("SELECT * FROM trainers");
+  return rows;
+}
+
+async function getAllTypes() {
+  const { rows } = await pool.query("SELECT * FROM types");
+  return rows;
+}
+
+module.exports = { getAllPokemons, getAllTrainers, getAllTypes };
