@@ -1,6 +1,13 @@
+const { body } = require("express-validator");
 const { getAllPokemons, getAllTrainers, getAllTypes } = require("../db/db");
 
-
+const validatePokemon = [
+  body("pokemon_name")
+    .notEmpty()
+    .withMessage("Pokemon's name must not be empty.")
+    .isAlpha()
+    .withMessage("Pokemon's name must only contain alphabet letters."),
+];
 
 async function indexGet(req, res) {
   const pokemons = await getAllPokemons();
@@ -24,9 +31,12 @@ async function indexCreateGet(req, res) {
   });
 }
 
-async function indexCreatePost(req, res) {
-  res.redirect("/");
-}
+const indexCreatePost = [
+  validatePokemon,
+  async function indexCreatePost(req, res) {
+    res.redirect("/");
+  },
+];
 
 module.exports = {
   indexGet,
