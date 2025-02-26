@@ -1,5 +1,7 @@
 const { getAllPokemons, getAllTrainers, getAllTypes } = require("../db/db");
 
+
+
 async function indexGet(req, res) {
   const pokemons = await getAllPokemons();
   const keys = Object.keys(pokemons[0]);
@@ -10,6 +12,7 @@ async function indexGet(req, res) {
     keys: [...keys, "actions"],
   });
 }
+
 async function indexCreateGet(req, res) {
   const trainers = await getAllTrainers();
   const types = await getAllTypes();
@@ -21,7 +24,12 @@ async function indexCreateGet(req, res) {
   });
 }
 
+async function indexCreatePost(req, res) {
+  res.redirect("/");
+}
+
 module.exports = {
   indexGet,
   indexCreateGet,
+  indexCreatePost,
 };
