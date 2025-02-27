@@ -22,4 +22,28 @@ async function getAllTypes() {
   return rows;
 }
 
-module.exports = { getAllPokemons, getAllTrainers, getAllTypes };
+async function addPokemon({ pokemonName, trainerId, typeId }) {
+  const { rows: pokemons } = await pool.query("SELECT * FROM pokemons");
+
+  const pokemonExist = pokemons.find((pokemon) => {
+    return (
+      (pokemon["pokemon_name"] == pokemonName &&
+        pokemon["pokemon_trainer_id"] == trainerId) ||
+      (pokemon["pokemon_name"] == pokemonName &&
+        pokemon["pokemon_type_id"] == typeId)
+    );
+  });
+
+  if (pokemonExist) {
+    return false;
+  }
+
+  await pool.query(
+    `INSERT INTO pokemons
+    (pokemon_name, pokemon_trainer_id, pokemon_type_id)
+    VALUES ($1, $2, $3)`,
+    [pokemonName, trainerId, typeId]
+  );
+}
+
+module.exports = { getAllPokemons, getAllTrainers, getAllTypes, addPokemon };
