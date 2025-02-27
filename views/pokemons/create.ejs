@@ -13,6 +13,9 @@
   <div class="create-pokemon">
     <a href="/" class="create-pokemon__back-link">Back to Home Page</a>
     <form action="/create" method="post" class="create-pokemon__form">
+      <ul class="create-pokemon__errors"><% errors.forEach(function(error) { %>
+        <li create-pokemon__error><%= error.msg %></li>
+        <% }); %></ul>
       <h2 class="create-pokemon__form--title"><%= title %></h2>
       <div class="create-pokemon__name">
         <label for="name" class="create-pokemon__name--label">Pokemon's Name</label>
@@ -22,7 +25,7 @@
         <label for="trainer" class="create-pokemon__trainer--label">Pokemon's trainer</label>
         <select name="trainer" id="trainer">
           <% trainers.forEach((trainer) => { %>
-          <option value="<%= trainer.trainer %>"><%= trainer.trainer %></option>
+          <option value="<%= trainer.id %>"><%= trainer.trainer %></option>
           <% }); %>
         </select>
       </div>
@@ -30,7 +33,7 @@
         <label for="type" class="create-pokemon__type--label">Pokemon's type</label>
         <select name="type" id="type">
           <% types.forEach((type) => { %>
-          <option value="<%= type.type_name %>"><%= type.type_name %></option>
+          <option value="<%= type.id %>"><%= type.type_name %></option>
           <% }); %>
         </select>
       </div>
