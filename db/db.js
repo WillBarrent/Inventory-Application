@@ -26,15 +26,16 @@ async function addPokemon({ pokemonName, trainerId, typeId }) {
   const { rows: pokemons } = await pool.query("SELECT * FROM pokemons");
 
   const pokemonExist = pokemons.find((pokemon) => {
-    return (
-      (pokemon["pokemon_name"] == pokemonName &&
-        pokemon["pokemon_trainer_id"] == trainerId) ||
-      (pokemon["pokemon_name"] == pokemonName &&
-        pokemon["pokemon_type_id"] == typeId)
-    );
+    return pokemon["pokemon_name"] == pokemonName;
   });
 
-  if (pokemonExist) {
+  if (
+    !(
+      pokemonExist["pokemon_name"] == pokemonName &&
+      pokemonExist["pokemon_trainer_id"] != trainerId &&
+      pokemonExist["pokemon_type_id"] == typeId
+    )
+  ) {
     return false;
   }
 
