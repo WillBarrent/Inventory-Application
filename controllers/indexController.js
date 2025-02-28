@@ -4,6 +4,7 @@ const {
   getAllTrainers,
   getAllTypes,
   addPokemon,
+  deletePokemon,
 } = require("../db/db");
 
 const validatePokemon = [
@@ -80,8 +81,17 @@ const indexCreatePost = [
   },
 ];
 
+async function indexDelete(req, res) {
+  const pokemonId = req.params["id"];
+
+  const result = await deletePokemon(pokemonId);
+
+  res.redirect("/");
+}
+
 module.exports = {
   indexGet,
   indexCreateGet,
   indexCreatePost,
+  indexDelete,
 };

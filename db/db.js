@@ -47,4 +47,23 @@ async function addPokemon({ pokemonName, trainerId, typeId }) {
   );
 }
 
-module.exports = { getAllPokemons, getAllTrainers, getAllTypes, addPokemon };
+async function deletePokemon(pokemonId) {
+  const { rows: pokemons } = await pool.query(
+    "SELECT * FROM pokemons WHERE id = $1",
+    [pokemonId]
+  );
+
+  if (!pokemons) {
+    return false;
+  }
+
+  await pool.query("DELETE FROM pokemons WHERE id = $1", [pokemonId]);
+}
+
+module.exports = {
+  getAllPokemons,
+  getAllTrainers,
+  getAllTypes,
+  addPokemon,
+  deletePokemon,
+};
