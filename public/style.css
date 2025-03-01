@@ -151,7 +151,8 @@ body {
   fill: rgb(255, 245, 225, 0.8);
 }
 
-.create-pokemon {
+.create-pokemon,
+.update-pokemon {
   height: 100vh;
 
   display: flex;
@@ -163,7 +164,8 @@ body {
   color: #fff5e1;
 }
 
-.create-pokemon__back-link {
+.create-pokemon__back-link,
+.update-pokemon__back-link {
   width: 500px;
   font-size: 20px;
   text-decoration: none;
@@ -172,11 +174,13 @@ body {
   text-align: left;
 }
 
-.create-pokemon__back-link:hover {
+.create-pokemon__back-link:hover,
+.update-pokemon__back-link:hover {
   text-decoration: underline;
 }
 
-.create-pokemon__form {
+.create-pokemon__form,
+.update-pokemon__form {
   width: 500px;
   height: 600px;
   padding: 60px 30px;
@@ -188,7 +192,8 @@ body {
   gap: 20px;
 }
 
-.create-pokemon__form--title {
+.create-pokemon__form--title,
+.update-pokemon__form--title {
   font-size: 40px;
   font-weight: bold;
   text-align: center;
@@ -196,14 +201,18 @@ body {
 
 .create-pokemon__name,
 .create-pokemon__trainer,
-.create-pokemon__type {
+.create-pokemon__type,
+.update-pokemon__name,
+.update-pokemon__trainer,
+.update-pokemon__type {
   display: flex;
   flex-direction: column;
 
   gap: 10px;
 }
 
-.create-pokemon__name--input {
+.create-pokemon__name--input,
+.update-pokemon__name--input {
   border: none;
   outline: none;
 
@@ -217,7 +226,9 @@ body {
 }
 
 .create-pokemon__trainer select,
-.create-pokemon__type select {
+.create-pokemon__type select,
+.update-pokemon__trainer select,
+.update-pokemon__type select {
   border: none;
   outline: none;
 
@@ -230,11 +241,13 @@ body {
   color: #0c1844;
 }
 
-.create-pokemon label {
+.create-pokemon label,
+.update-pokemon label {
   font-size: 30px;
 }
 
-.create-pokemon button {
+.create-pokemon button,
+.update-pokemon button {
   color: #fff5e1;
   background-color: #0c1844;
 
@@ -248,12 +261,14 @@ body {
   width: 100%;
 }
 
-.create-pokemon button:hover {
+.create-pokemon button:hover,
+.update-pokemon button:hover {
   cursor: pointer;
   background-color: rgb(12, 24, 68, 0.8);
 }
 
-.create-pokemon__errors {
+.create-pokemon__errors,
+.update-pokemon__errors {
   background-color: #fff5e1;
   color: #c80036;
   padding: 5px 10px;
@@ -266,6 +281,7 @@ body {
   list-style: none;
 }
 
-.create-pokemon__errors:empty {
+.create-pokemon__errors:empty,
+.update-pokemon__errors:empty {
   padding: 0;
 }
