@@ -6,8 +6,17 @@ async function getAllPokemons() {
     INNER JOIN trainers
     ON trainers.id = pokemons.pokemon_trainer_id
     INNER JOIN types
-    ON types.id = pokemon_type_id; 
+    ON types.id = pokemon_type_id
+    ORDER BY id;
   `);
+
+  return rows;
+}
+
+async function getPokemonById(pokemonId) {
+  const { rows } = await pool.query("SELECT * FROM pokemons WHERE id = $1", [
+    pokemonId,
+  ]);
 
   return rows;
 }
@@ -30,6 +39,7 @@ async function addPokemon({ pokemonName, trainerId, typeId }) {
   });
 
   if (
+    pokemonExist &&
     !(
       pokemonExist["pokemon_name"] == pokemonName &&
       pokemonExist["pokemon_trainer_id"] != trainerId &&
@@ -47,6 +57,33 @@ async function addPokemon({ pokemonName, trainerId, typeId }) {
   );
 }
 
+async function updatePokemon({ pokemonId, pokemonName, trainerId, typeId }) {
+  const { rows: pokemons } = await pool.query("SELECT * FROM pokemons");
+
+  const pokemonExist = pokemons.find((pokemon) => {
+    return pokemon["pokemon_name"] == pokemonName;
+  });
+
+  if (
+    pokemonExist &&
+    !(
+      pokemonExist["pokemon_name"] == pokemonName &&
+      pokemonExist["pokemon_trainer_id"] != trainerId
+    )
+  ) {
+    return false;
+  }
+
+    await pool.query(
+      `UPDATE pokemons SET
+        pokemon_name = $1,
+        pokemon_trainer_id = $2,
+        pokemon_type_id = $3
+        WHERE id = $4`,
+      [pokemonName, trainerId, typeId, pokemonId]
+    );
+}
+
 async function deletePokemon(pokemonId) {
   const { rows: pokemons } = await pool.query(
     "SELECT * FROM pokemons WHERE id = $1",
@@ -62,8 +99,10 @@ async function deletePokemon(pokemonId) {
 
 module.exports = {
   getAllPokemons,
+  getPokemonById,
   getAllTrainers,
   getAllTypes,
   addPokemon,
+  updatePokemon,
   deletePokemon,
 };
