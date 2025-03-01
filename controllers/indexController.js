@@ -5,6 +5,8 @@ const {
   getAllTypes,
   addPokemon,
   deletePokemon,
+  getPokemonById,
+  updatePokemon,
 } = require("../db/db");
 
 const validatePokemon = [
@@ -81,6 +83,108 @@ const indexCreatePost = [
   },
 ];
 
+async function indexUpdateGet(req, res) {
+  const pokemonId = req.params["id"];
+
+  const pokemon = await getPokemonById(pokemonId);
+
+  const trainers = await getAllTrainers();
+  const types = await getAllTypes();
+
+  const pokemonsTrainer = trainers.find(
+    (trainer) => trainer["id"] == pokemon[0]["pokemon_trainer_id"]
+  );
+  const pokemonsType = types.find(
+    (type) => type["id"] == pokemon[0]["pokemon_type_id"]
+  );
+
+  res.render("pokemons/update", {
+    title: "Update Pokemon's data",
+    trainers: trainers,
+    types: types,
+    pokemonsTrainer: pokemonsTrainer,
+    pokemonsType: pokemonsType,
+    pokemonName: pokemon[0]["pokemon_name"],
+    pokemonId: pokemonId,
+    errors: [],
+  });
+}
+
+const indexUpdatePost = [
+  validatePokemon,
+  async function indexUpdatePost(req, res) {
+    const pokemonId = req.params["id"];
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const pokemon = await getPokemonById(pokemonId);
+
+      const trainers = await getAllTrainers();
+      const types = await getAllTypes();
+
+      const pokemonsTrainer = trainers.find(
+        (trainer) => trainer["id"] == pokemon[0]["pokemon_trainer_id"]
+      );
+      const pokemonsType = types.find(
+        (type) => type["id"] == pokemon[0]["pokemon_type_id"]
+      );
+
+      return res.status(400).render("pokemons/update", {
+        title: "Update Pokemon's data",
+        trainers: trainers,
+        types: types,
+        pokemonsTrainer: pokemonsTrainer,
+        pokemonsType: pokemonsType,
+        pokemonName: pokemon[0]["pokemon_name"],
+        pokemonId: pokemonId,
+        errors: errors.array(),
+      });
+    }
+
+    const body = req.body;
+    const pokemonName = body["pokemon_name"];
+    const trainerId = body["trainer"];
+    const typeId = body["type"];
+
+    const result = await updatePokemon({
+      pokemonId,
+      pokemonName,
+      trainerId,
+      typeId,
+    });
+
+    if (result === false) {
+      const pokemon = await getPokemonById(pokemonId);
+
+      const trainers = await getAllTrainers();
+      const types = await getAllTypes();
+
+      const pokemonsTrainer = trainers.find(
+        (trainer) => trainer["id"] == pokemon[0]["pokemon_trainer_id"]
+      );
+      const pokemonsType = types.find(
+        (type) => type["id"] == pokemon[0]["pokemon_type_id"]
+      );
+
+      return res.status(400).render("pokemons/update", {
+        title: "Update Pokemon's data",
+        trainers: trainers,
+        types: types,
+        pokemonsTrainer: pokemonsTrainer,
+        pokemonsType: pokemonsType,
+        pokemonName: pokemon[0]["pokemon_name"],
+        pokemonId: pokemonId,
+        errors: [
+          {
+            msg: "It seems you can't update pokemon with these combinations of data",
+          },
+        ],
+      });
+    }
+
+    res.redirect("/");
+  },
+];
+
 async function indexDelete(req, res) {
   const pokemonId = req.params["id"];
 
@@ -93,5 +197,7 @@ module.exports = {
   indexGet,
   indexCreateGet,
   indexCreatePost,
+  indexUpdateGet,
+  indexUpdatePost,
   indexDelete,
 };

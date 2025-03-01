@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+
+  <%- include('../templates/styles') %>
+</head>
+
+<body>
+  <div class="update-pokemon">
+    <a href="/" class="update-pokemon__back-link">Back to Home Page</a>
+    <form action="/update/<%= pokemonId %>" method="post" class="update-pokemon__form">
+      <ul class="update-pokemon__errors"><% errors.forEach(function(error) { %>
+        <li update-pokemon__error><%= error.msg %></li>
+        <% }); %></ul>
+      <h2 class="update-pokemon__form--title"><%= title %></h2>
+      <div class="update-pokemon__name">
+        <label for="name" class="update-pokemon__name--label">Pokemon's Name</label>
+        <input type="text" value="<%= pokemonName %>" class="update-pokemon__name--input" id="name" name="pokemon_name">
+      </div>
+      <div class="update-pokemon__trainer">
+        <label for="trainer" class="update-pokemon__trainer--label">Pokemon's trainer</label>
+        <select name="trainer" id="trainer">
+          <option value="<%= pokemonsTrainer.id %>"><%= pokemonsTrainer.trainer %></option>
+          <% trainers.forEach((trainer) => { %>
+          <% if (trainer.id != pokemonsTrainer.id) { %>
+          <option value="<%= trainer.id %>"><%= trainer.trainer %></option>
+          <% } %>
+          <% }); %>
+        </select>
+      </div>
+      <div class="update-pokemon__type">
+        <label for="type" class="update-pokemon__type--label">Pokemon's type</label>
+        <select name="type" id="type">
+          <option value="<%= pokemonsType.id %>"><%= pokemonsType.type_name %></option>
+          <% types.forEach((type) => { %>
+          <% if (type.id != pokemonsType.id) { %>
+          <option value="<%= type.id %>"><%= type.type_name %></option>
+          <% } %>
+          <% }); %>
+        </select>
+      </div>
+      <button type="submit">Update</button>
+    </form>
+  </div>
+</body>
+
+</html>
