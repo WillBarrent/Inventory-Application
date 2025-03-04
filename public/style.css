@@ -111,7 +111,7 @@ body {
 .display__items-titles,
 .display__items-table {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   justify-items: center;
 }
 
