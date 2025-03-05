@@ -74,14 +74,14 @@ async function updatePokemon({ pokemonId, pokemonName, trainerId, typeId }) {
     return false;
   }
 
-    await pool.query(
-      `UPDATE pokemons SET
+  await pool.query(
+    `UPDATE pokemons SET
         pokemon_name = $1,
         pokemon_trainer_id = $2,
         pokemon_type_id = $3
         WHERE id = $4`,
-      [pokemonName, trainerId, typeId, pokemonId]
-    );
+    [pokemonName, trainerId, typeId, pokemonId]
+  );
 }
 
 async function deletePokemon(pokemonId) {
@@ -97,6 +97,23 @@ async function deletePokemon(pokemonId) {
   await pool.query("DELETE FROM pokemons WHERE id = $1", [pokemonId]);
 }
 
+async function getAllTrainersPokemons(trainerId) {
+  const { rows } = await pool.query(
+    `
+    SELECT pokemons.id, pokemon_name, trainer, type_name FROM pokemons
+    INNER JOIN trainers
+    ON trainers.id = pokemons.pokemon_trainer_id
+    INNER JOIN types
+    ON types.id = pokemon_type_id
+    WHERE pokemon_trainer_id = $1
+    ORDER BY id;
+  `,
+    [trainerId]
+  );
+
+  return rows;
+}
+
 module.exports = {
   getAllPokemons,
   getPokemonById,
@@ -105,4 +122,5 @@ module.exports = {
   addPokemon,
   updatePokemon,
   deletePokemon,
+  getAllTrainersPokemons,
 };

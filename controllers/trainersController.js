@@ -1,4 +1,4 @@
-const { getAllTrainers } = require("../db/db");
+const { getAllTrainers, getAllTrainersPokemons } = require("../db/db");
 
 async function trainersGet(req, res) {
   const trainers = await getAllTrainers();
@@ -11,6 +11,19 @@ async function trainersGet(req, res) {
   });
 }
 
+async function trainersPokemonsGet(req, res) {
+  const { id } = req.params;
+  const pokemons = await getAllTrainersPokemons(id);
+  const keys = Object.keys(pokemons[0]).slice(1);
+
+  res.render("index", {
+    title: "Trainer's Pokemons",
+    pokemons: pokemons,
+    keys: [...keys, "actions"],
+  });
+}
+
 module.exports = {
   trainersGet,
+  trainersPokemonsGet,
 };

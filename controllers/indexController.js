@@ -21,7 +21,6 @@ async function indexGet(req, res) {
   const pokemons = await getAllPokemons();
   const keys = Object.keys(pokemons[0]).slice(1);
 
-  console.log(keys);
   res.render("index", {
     title: "All Pokemons",
     pokemons: pokemons,
