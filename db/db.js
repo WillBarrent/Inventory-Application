@@ -114,6 +114,39 @@ async function getAllTrainersPokemons(trainerId) {
   return rows;
 }
 
+async function getTrainerById(id) {
+  const { rows } = await pool.query("SELECT * FROM trainers WHERE id = $1", [
+    id,
+  ]);
+
+  return rows;
+}
+
+async function deleteTrainer(id) {
+  const { rows: trainers } = await pool.query(
+    "SELECT * FROM trainers WHERE id = $1",
+    [id]
+  );
+
+  if (!trainers) {
+    return false;
+  }
+
+  await pool.query("DELETE FROM trainers WHERE id = $1", [id]);
+
+  const { rows: pokemonsToDelete } = await pool.query(
+    `
+    SELECT * FROM pokemons WHERE pokemon_trainer_id = $1`,
+    [id]
+  );
+
+  const idsOfPokemons = pokemonsToDelete.map((pokemon) => {
+    return pokemon["id"];
+  });
+
+  await pool.query("DELETE FROM pokemons WHERE id = ANY ($1)", [idsOfPokemons]);
+}
+
 module.exports = {
   getAllPokemons,
   getPokemonById,
@@ -123,4 +156,6 @@ module.exports = {
   updatePokemon,
   deletePokemon,
   getAllTrainersPokemons,
+  getTrainerById,
+  deleteTrainer,
 };
