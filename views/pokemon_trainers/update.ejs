@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+
+  <%- include('../templates/styles') %>
+</head>
+
+<body>
+  <div class="create-trainer">
+    <a href="/trainers" class="create-trainer__back-link">Back to Trainers Page</a>
+    <form action="/trainers/create" method="post" class="create-trainer__form">
+      <ul class="create-trainer__errors"><% errors.forEach(function(error) { %>
+        <li create-trainer__error><%= error.msg %></li>
+        <% }); %></ul>
+      <h2 class="create-trainer__form--title"><%= title %></h2>
+      <div class="create-trainer__name">
+        <label for="name" class="create-trainer__name--label">Trainer's Name</label>
+        <input type="text" value="<%= trainerName %>" class="create-trainer__name--input" id="name" name="trainer_name">
+      </div>
+      <button type="submit">Update</button>
+    </form>
+  </div>
+</body>
+
+</html>
