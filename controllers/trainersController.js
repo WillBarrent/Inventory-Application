@@ -1,15 +1,25 @@
+const { body, validationResult } = require("express-validator");
 const {
   getAllTrainers,
   getAllTrainersPokemons,
   getTrainerById,
   deleteTrainer,
+  addTrainer,
 } = require("../db/db");
+
+const validateTrainer = [
+  body("trainer_name")
+    .notEmpty()
+    .withMessage("Trainer's name cannot be empty")
+    .isAlpha()
+    .withMessage("Trainer's name must only contain alphabet letters."),
+];
 
 async function trainersGet(req, res) {
   const trainers = await getAllTrainers();
   const keys = Object.keys(trainers[0]).slice(1);
 
-  res.render("pokemon_trainers/trainers.ejs", {
+  res.render("pokemon_trainers/trainers", {
     title: "All Pokemons' Trainers",
     trainers: trainers,
     keys: [...keys, "actions"],
@@ -35,6 +45,44 @@ async function trainersCreateGet(req, res) {
   });
 }
 
+const trainersCreatePost = [
+  validateTrainer,
+  async function trainerCreatePost(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).render("pokemons/create", {
+        title: "Create a new Trainer",
+        errors: errors.array(),
+      });
+    }
+
+    const body = req.body;
+    const trainerName = body["trainer_name"];
+
+    const result = await addTrainer(trainerName);
+
+    if (result === false) {
+      return res.status(400).render("pokemons/create", {
+        title: "Create a new Trainer",
+        errors: [
+          {
+            msg: "The trainer with the same name already exists.",
+          },
+        ],
+      });
+    }
+
+    const trainers = await getAllTrainers();
+    const keys = Object.keys(trainers[0]).slice(1);
+
+    res.render("pokemon_trainers/trainers", {
+      title: "All Pokemons' Trainers",
+      trainers: trainers,
+      keys: [...keys, "actions"],
+    });
+  },
+];
+
 async function trainersUpdateGet(req, res) {
   const { id } = req.params;
   const trainer = await getTrainerById(id);
@@ -46,6 +94,11 @@ async function trainersUpdateGet(req, res) {
     errors: [],
   });
 }
+
+const trainersUpdatePost = [
+  validateTrainer,
+  async function trainerUpdatePost(req, res) {},
+];
 
 async function trainersDeleteGet(req, res) {
   const id = req.params["id"];
@@ -59,6 +112,7 @@ module.exports = {
   trainersGet,
   trainersPokemonsGet,
   trainersCreateGet,
+  trainersCreatePost,
   trainersUpdateGet,
-  trainersDeleteGet
+  trainersDeleteGet,
 };

@@ -5,12 +5,14 @@ const {
   trainersCreateGet,
   trainersUpdateGet,
   trainersDeleteGet,
+  trainersCreatePost,
 } = require("../controllers/trainersController");
 
 const trainersRoute = Router();
 
 trainersRoute.get("/", trainersGet);
 trainersRoute.get("/create", trainersCreateGet);
+trainersRoute.post("/create", trainersCreatePost);
 trainersRoute.get("/update/:id", trainersUpdateGet);
 trainersRoute.get("/delete/:id", trainersDeleteGet);
 trainersRoute.get("/:id", trainersPokemonsGet);

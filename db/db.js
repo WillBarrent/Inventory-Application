@@ -122,6 +122,22 @@ async function getTrainerById(id) {
   return rows;
 }
 
+async function addTrainer(trainerName) {
+  const { rows: trainers } = await pool.query("SELECT * FROM trainers");
+
+  const trainerExist = trainers.find((trainer) => {
+    return trainer["trainer"] == trainerName;
+  });
+
+  if (trainerExist) {
+    return false;
+  }
+
+  await pool.query("INSERT INTO trainers (trainer) VALUES ($1)", [trainerName]);
+}
+
+async function updateTrainer() {}
+
 async function deleteTrainer(id) {
   const { rows: trainers } = await pool.query(
     "SELECT * FROM trainers WHERE id = $1",
@@ -157,5 +173,6 @@ module.exports = {
   deletePokemon,
   getAllTrainersPokemons,
   getTrainerById,
+  addTrainer,
   deleteTrainer,
 };
