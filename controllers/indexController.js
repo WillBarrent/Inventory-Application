@@ -19,7 +19,7 @@ const validatePokemon = [
 
 async function indexGet(req, res) {
   const pokemons = await getAllPokemons();
-  const keys = Object.keys(pokemons[0]).slice(1);
+  const keys = ["pokemon_name", "trainer", "type_name"];
 
   res.render("index", {
     title: "All Pokemons",

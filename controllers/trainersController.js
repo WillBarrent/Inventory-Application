@@ -17,7 +17,7 @@ const validateTrainer = [
 
 async function trainersGet(req, res) {
   const trainers = await getAllTrainers();
-  const keys = Object.keys(trainers[0]).slice(1);
+  const keys = ["trainer"];
 
   res.render("pokemon_trainers/trainers", {
     title: "All Pokemons' Trainers",
@@ -29,7 +29,7 @@ async function trainersGet(req, res) {
 async function trainersPokemonsGet(req, res) {
   const { id } = req.params;
   const pokemons = await getAllTrainersPokemons(id);
-  const keys = Object.keys(pokemons[0]).slice(1);
+  const keys = ["pokemon_name", "trainer", "type_name"];
 
   res.render("index", {
     title: "Trainer's Pokemons",
@@ -73,7 +73,7 @@ const trainersCreatePost = [
     }
 
     const trainers = await getAllTrainers();
-    const keys = Object.keys(trainers[0]).slice(1);
+    const keys = ["pokemon_name", "trainer", "type_name"];
 
     res.render("pokemon_trainers/trainers", {
       title: "All Pokemons' Trainers",
