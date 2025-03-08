@@ -136,7 +136,22 @@ async function addTrainer(trainerName) {
   await pool.query("INSERT INTO trainers (trainer) VALUES ($1)", [trainerName]);
 }
 
-async function updateTrainer() {}
+async function updateTrainer(id, trainerName) {
+  const { rows: trainers } = await pool.query("SELECT * FROM trainers");
+
+  const trainerExist = trainers.find((trainer) => {
+    return trainer["trainer"] == trainerName;
+  });
+
+  if (trainerExist) {
+    return false;
+  }
+
+  await pool.query("UPDATE trainers SET trainer = $1 WHERE id = $2", [
+    trainerName,
+    id,
+  ]);
+}
 
 async function deleteTrainer(id) {
   const { rows: trainers } = await pool.query(
@@ -174,5 +189,6 @@ module.exports = {
   getAllTrainersPokemons,
   getTrainerById,
   addTrainer,
+  updateTrainer,
   deleteTrainer,
 };

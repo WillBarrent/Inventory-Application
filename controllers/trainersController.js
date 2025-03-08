@@ -5,6 +5,7 @@ const {
   getTrainerById,
   deleteTrainer,
   addTrainer,
+  updateTrainer,
 } = require("../db/db");
 
 const validateTrainer = [
@@ -50,7 +51,7 @@ const trainersCreatePost = [
   async function trainerCreatePost(req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).render("pokemons/create", {
+      return res.status(400).render("pokemon_trainers/create", {
         title: "Create a new Trainer",
         errors: errors.array(),
       });
@@ -62,7 +63,7 @@ const trainersCreatePost = [
     const result = await addTrainer(trainerName);
 
     if (result === false) {
-      return res.status(400).render("pokemons/create", {
+      return res.status(400).render("pokemon_trainers/create", {
         title: "Create a new Trainer",
         errors: [
           {
@@ -72,32 +73,59 @@ const trainersCreatePost = [
       });
     }
 
-    const trainers = await getAllTrainers();
-    const keys = ["pokemon_name", "trainer", "type_name"];
-
-    res.render("pokemon_trainers/trainers", {
-      title: "All Pokemons' Trainers",
-      trainers: trainers,
-      keys: [...keys, "actions"],
-    });
+    res.redirect("/trainers");
   },
 ];
 
 async function trainersUpdateGet(req, res) {
   const { id } = req.params;
   const trainer = await getTrainerById(id);
-  console.log(trainer);
 
   res.render("pokemon_trainers/update", {
     title: "Update a trainer",
     trainerName: trainer[0]["trainer"],
+    trainerId: id,
     errors: [],
   });
 }
 
 const trainersUpdatePost = [
   validateTrainer,
-  async function trainerUpdatePost(req, res) {},
+  async function trainerUpdatePost(req, res) {
+    const errors = validationResult(req);
+    const { id } = req.params;
+
+    if (!errors.isEmpty()) {
+      const trainer = await getTrainerById(id);
+      return res.status(400).render("pokemon_trainers/update", {
+        title: "Update a Trainer",
+        trainerId: id,
+        trainerName: trainer[0]["trainer"],
+        errors: errors.array(),
+      });
+    }
+
+    const body = req.body;
+    const trainerName = body["trainer_name"];
+
+    const result = await updateTrainer(id, trainerName);
+
+    if (result === false) {
+      const trainer = await getTrainerById(id);
+      return res.status(400).render("pokemon_trainers/update", {
+        title: "Update a Trainer",
+        trainerId: id,
+        trainerName: trainer[0]["trainer"],
+        errors: [
+          {
+            msg: "The trainer with the same name already exists.",
+          },
+        ],
+      });
+    }
+
+    res.redirect("/trainers");
+  },
 ];
 
 async function trainersDeleteGet(req, res) {
@@ -114,5 +142,6 @@ module.exports = {
   trainersCreateGet,
   trainersCreatePost,
   trainersUpdateGet,
+  trainersUpdatePost,
   trainersDeleteGet,
 };
