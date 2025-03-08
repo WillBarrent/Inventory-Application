@@ -153,7 +153,8 @@ body {
 
 .create-pokemon,
 .update-pokemon,
-.create-trainer {
+.create-trainer,
+.update-trainer {
   height: 100vh;
 
   display: flex;
@@ -167,7 +168,8 @@ body {
 
 .create-pokemon__back-link,
 .update-pokemon__back-link,
-.create-trainer__back-link {
+.create-trainer__back-link,
+.update-trainer__back-link {
   width: 500px;
   font-size: 20px;
   text-decoration: none;
@@ -178,13 +180,15 @@ body {
 
 .create-pokemon__back-link:hover,
 .update-pokemon__back-link:hover,
-.create-trainer__back-link:hover {
+.create-trainer__back-link:hover,
+.update-trainer__back-link:hover {
   text-decoration: underline;
 }
 
 .create-pokemon__form,
 .update-pokemon__form,
-.create-trainer__form {
+.create-trainer__form,
+.update-trainer__form {
   width: 500px;
   height: 600px;
   padding: 60px 30px;
@@ -195,13 +199,15 @@ body {
   justify-content: center;
   gap: 20px;
 }
-.create-trainer__form {
+.create-trainer__form,
+.update-trainer__form {
   height: 300px;
 }
 
 .create-pokemon__form--title,
 .update-pokemon__form--title,
-.create-trainer__form--title {
+.create-trainer__form--title,
+.update-trainer__form--title {
   font-size: 40px;
   font-weight: bold;
   text-align: center;
@@ -213,7 +219,8 @@ body {
 .update-pokemon__name,
 .update-pokemon__trainer,
 .update-pokemon__type,
-.create-trainer__name {
+.create-trainer__name,
+.update-trainer__name {
   display: flex;
   flex-direction: column;
 
@@ -222,7 +229,8 @@ body {
 
 .create-pokemon__name--input,
 .update-pokemon__name--input,
-.create-trainer__name--input {
+.create-trainer__name--input,
+.update-trainer__name--input {
   border: none;
   outline: none;
 
@@ -253,13 +261,15 @@ body {
 
 .create-pokemon label,
 .update-pokemon label,
-.create-trainer__name--label {
+.create-trainer__name--label,
+.update-trainer__name--label {
   font-size: 30px;
 }
 
 .create-pokemon button,
 .update-pokemon button,
-.create-trainer button {
+.create-trainer button,
+.update-trainer button {
   color: #fff5e1;
   background-color: #0c1844;
 
@@ -274,9 +284,11 @@ body {
 }
 
 .create-pokemon button:hover,
-.update-pokemon button:hover {
+.update-pokemon button:hover,
+.create-trainer button:hover,
+.update-trainer button:hover {
   cursor: pointer;
-  background-color: rgb(12, 24, 68, 0.8);
+  background-color: rgb(9, 18, 52);
 }
 
 .create-pokemon__errors,
