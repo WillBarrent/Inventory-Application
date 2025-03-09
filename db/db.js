@@ -195,6 +195,14 @@ async function getAllTypesPokemons(typeId) {
   return rows;
 }
 
+async function getTypeById(id) {
+  const { rows } = await pool.query("SELECT * FROM types WHERE id = $1", [
+    id,
+  ]);
+
+  return rows;
+}
+
 async function addType(typeName) {
   const { rows: types } = await pool.query("SELECT * FROM types");
 
@@ -220,10 +228,7 @@ async function updateType(id, typeName) {
     return false;
   }
 
-  await pool.query("UPDATE types SET type = $1 WHERE id = $2", [
-    typeName,
-    id,
-  ]);
+  await pool.query("UPDATE types SET type = $1 WHERE id = $2", [typeName, id]);
 }
 
 async function deleteType(id) {
