@@ -214,7 +214,7 @@ async function addType(typeName) {
     return false;
   }
 
-  await pool.query("INSERT INTO types (type) VALUES ($1)", [typeName]);
+  await pool.query("INSERT INTO types (type_name) VALUES ($1)", [typeName]);
 }
 
 async function updateType(id, typeName) {
@@ -228,7 +228,7 @@ async function updateType(id, typeName) {
     return false;
   }
 
-  await pool.query("UPDATE types SET type = $1 WHERE id = $2", [typeName, id]);
+  await pool.query("UPDATE types SET type_name = $1 WHERE id = $2", [typeName, id]);
 }
 
 async function deleteType(id) {
@@ -270,6 +270,7 @@ module.exports = {
   updateTrainer,
   deleteTrainer,
   getAllTypesPokemons,
+  getTypeById,
   addType,
   updateType,
   deleteType,
