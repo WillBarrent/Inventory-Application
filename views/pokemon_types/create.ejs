@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+
+  <%- include('../templates/styles') %>
+</head>
+
+<body>
+  <div class="create-type">
+    <a href="/types" class="create-type__back-link">Back to Types Page</a>
+    <form action="/types/create/" method="post" class="create-type__form">
+      <ul class="create-type__errors"><% errors.forEach(function(error) { %>
+        <li create-type__error><%= error.msg %></li>
+        <% }); %></ul>
+      <h2 class="create-type__form--title"><%= title %></h2>
+      <div class="create-type__name">
+        <label for="name" class="create-type__name--label">Type's Name</label>
+        <input type="text" class="create-type__name--input" id="name" name="type_name">
+      </div>
+      <button type="submit">Create</button>
+    </form>
+  </div>
+</body>
+
+</html>

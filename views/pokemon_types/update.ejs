@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+
+  <%- include('../templates/styles') %>
+</head>
+
+<body>
+  <div class="update-type">
+    <a href="/types" class="update-type__back-link">Back to Types Page</a>
+    <form action="/types/update/<%= typeId %>" method="post" class="update-type__form">
+      <ul class="update-type__errors"><% errors.forEach(function(error) { %>
+        <li update-type__error><%= error.msg %></li>
+        <% }); %></ul>
+      <h2 class="update-type__form--title"><%= title %></h2>
+      <div class="update-type__name">
+        <label for="name" class="update-type__name--label">Type's Name</label>
+        <input type="text" value="<%= typeName %>" class="update-type__name--input" id="name" name="type_name">
+      </div>
+      <button type="submit">Update</button>
+    </form>
+  </div>
+</body>
+
+</html>
