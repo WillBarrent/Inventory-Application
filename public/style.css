@@ -154,7 +154,9 @@ body {
 .create-pokemon,
 .update-pokemon,
 .create-trainer,
-.update-trainer {
+.update-trainer,
+.create-type,
+.update-type {
   height: 100vh;
 
   display: flex;
@@ -169,7 +171,9 @@ body {
 .create-pokemon__back-link,
 .update-pokemon__back-link,
 .create-trainer__back-link,
-.update-trainer__back-link {
+.update-trainer__back-link,
+.create-type__back-link,
+.update-type__back-link {
   width: 500px;
   font-size: 20px;
   text-decoration: none;
@@ -181,14 +185,18 @@ body {
 .create-pokemon__back-link:hover,
 .update-pokemon__back-link:hover,
 .create-trainer__back-link:hover,
-.update-trainer__back-link:hover {
+.update-trainer__back-link:hover,
+.create-type__back-link:hover,
+.update-type__back-link:hover {
   text-decoration: underline;
 }
 
 .create-pokemon__form,
 .update-pokemon__form,
 .create-trainer__form,
-.update-trainer__form {
+.update-trainer__form,
+.create-type__form,
+.update-type__form {
   width: 500px;
   height: 600px;
   padding: 60px 30px;
@@ -200,14 +208,18 @@ body {
   gap: 20px;
 }
 .create-trainer__form,
-.update-trainer__form {
+.update-trainer__form,
+.create-type__form,
+.update-type__form {
   height: 300px;
 }
 
 .create-pokemon__form--title,
 .update-pokemon__form--title,
 .create-trainer__form--title,
-.update-trainer__form--title {
+.update-trainer__form--title,
+.create-type__form--title,
+.update-type__form--title {
   font-size: 40px;
   font-weight: bold;
   text-align: center;
@@ -220,7 +232,9 @@ body {
 .update-pokemon__trainer,
 .update-pokemon__type,
 .create-trainer__name,
-.update-trainer__name {
+.update-trainer__name,
+.create-type__name,
+.update-type__name {
   display: flex;
   flex-direction: column;
 
@@ -230,7 +244,9 @@ body {
 .create-pokemon__name--input,
 .update-pokemon__name--input,
 .create-trainer__name--input,
-.update-trainer__name--input {
+.update-trainer__name--input,
+.create-type__name--input,
+.update-type__name--input {
   border: none;
   outline: none;
 
@@ -262,14 +278,18 @@ body {
 .create-pokemon label,
 .update-pokemon label,
 .create-trainer__name--label,
-.update-trainer__name--label {
+.update-trainer__name--label,
+.create-type__name--label,
+.update-type__name--label {
   font-size: 30px;
 }
 
 .create-pokemon button,
 .update-pokemon button,
 .create-trainer button,
-.update-trainer button {
+.update-trainer button,
+.create-type button,
+.update-type button {
   color: #fff5e1;
   background-color: #0c1844;
 
@@ -286,13 +306,19 @@ body {
 .create-pokemon button:hover,
 .update-pokemon button:hover,
 .create-trainer button:hover,
-.update-trainer button:hover {
+.update-trainer button:hover,
+.create-type button:hover,
+.update-type button:hover {
   cursor: pointer;
   background-color: rgb(9, 18, 52);
 }
 
 .create-pokemon__errors,
-.update-pokemon__errors {
+.update-pokemon__errors,
+.create-trainer__errors,
+.update-trainer__errors,
+.create-type__errors,
+.update-type__errors {
   background-color: #fff5e1;
   color: #c80036;
   padding: 5px 10px;
@@ -306,6 +332,10 @@ body {
 }
 
 .create-pokemon__errors:empty,
-.update-pokemon__errors:empty {
+.update-pokemon__errors:empty,
+.create-trainer__errors:empty,
+.update-trainer__errors:empty,
+.create-type__errors:empty,
+.update-type__errors:empty {
   padding: 0;
 }
